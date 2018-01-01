@@ -8,12 +8,12 @@
 
 /* Begin PBXBuildFile section */
 		7858FE9D1FF9FF0E004B2BBC /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7858FE9C1FF9FF0E004B2BBC /* AppDelegate.swift */; };
-		7858FE9F1FF9FF0E004B2BBC /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7858FE9E1FF9FF0E004B2BBC /* ViewController.swift */; };
 		7858FEA21FF9FF0E004B2BBC /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7858FEA01FF9FF0E004B2BBC /* Main.storyboard */; };
 		7858FEA41FF9FF0E004B2BBC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7858FEA31FF9FF0E004B2BBC /* Assets.xcassets */; };
 		7858FEA71FF9FF0E004B2BBC /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7858FEA51FF9FF0E004B2BBC /* LaunchScreen.storyboard */; };
 		7858FEB21FF9FF0E004B2BBC /* chatTableTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7858FEB11FF9FF0E004B2BBC /* chatTableTests.swift */; };
 		7858FEBD1FF9FF0E004B2BBC /* chatTableUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7858FEBC1FF9FF0E004B2BBC /* chatTableUITests.swift */; };
+		7858FECC1FFA0A4A004B2BBC /* EHChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7858FECB1FFA0A4A004B2BBC /* EHChatViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -36,7 +36,6 @@
 /* Begin PBXFileReference section */
 		7858FE991FF9FF0E004B2BBC /* chatTable.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = chatTable.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7858FE9C1FF9FF0E004B2BBC /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		7858FE9E1FF9FF0E004B2BBC /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		7858FEA11FF9FF0E004B2BBC /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		7858FEA31FF9FF0E004B2BBC /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		7858FEA61FF9FF0E004B2BBC /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -47,6 +46,7 @@
 		7858FEB81FF9FF0E004B2BBC /* chatTableUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = chatTableUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		7858FEBC1FF9FF0E004B2BBC /* chatTableUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = chatTableUITests.swift; sourceTree = "<group>"; };
 		7858FEBE1FF9FF0E004B2BBC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		7858FECB1FFA0A4A004B2BBC /* EHChatViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EHChatViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -97,8 +97,8 @@
 		7858FE9B1FF9FF0E004B2BBC /* chatTable */ = {
 			isa = PBXGroup;
 			children = (
+				7858FECA1FFA0A03004B2BBC /* controller */,
 				7858FE9C1FF9FF0E004B2BBC /* AppDelegate.swift */,
-				7858FE9E1FF9FF0E004B2BBC /* ViewController.swift */,
 				7858FEA01FF9FF0E004B2BBC /* Main.storyboard */,
 				7858FEA31FF9FF0E004B2BBC /* Assets.xcassets */,
 				7858FEA51FF9FF0E004B2BBC /* LaunchScreen.storyboard */,
@@ -123,6 +123,14 @@
 				7858FEBE1FF9FF0E004B2BBC /* Info.plist */,
 			);
 			path = chatTableUITests;
+			sourceTree = "<group>";
+		};
+		7858FECA1FFA0A03004B2BBC /* controller */ = {
+			isa = PBXGroup;
+			children = (
+				7858FECB1FFA0A4A004B2BBC /* EHChatViewController.swift */,
+			);
+			path = controller;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -259,8 +267,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7858FE9F1FF9FF0E004B2BBC /* ViewController.swift in Sources */,
 				7858FE9D1FF9FF0E004B2BBC /* AppDelegate.swift in Sources */,
+				7858FECC1FFA0A4A004B2BBC /* EHChatViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
