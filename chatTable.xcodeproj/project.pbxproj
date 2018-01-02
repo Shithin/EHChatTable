@@ -14,6 +14,11 @@
 		7858FEB21FF9FF0E004B2BBC /* chatTableTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7858FEB11FF9FF0E004B2BBC /* chatTableTests.swift */; };
 		7858FEBD1FF9FF0E004B2BBC /* chatTableUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7858FEBC1FF9FF0E004B2BBC /* chatTableUITests.swift */; };
 		7858FECC1FFA0A4A004B2BBC /* EHChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7858FECB1FFA0A4A004B2BBC /* EHChatViewController.swift */; };
+		786BBA831FFA126000EEA21D /* EHUserChatCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 786BBA821FFA126000EEA21D /* EHUserChatCell.swift */; };
+		786BBA851FFA127800EEA21D /* EHSenderChatCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 786BBA841FFA127800EEA21D /* EHSenderChatCell.swift */; };
+		786BBA871FFA12B200EEA21D /* EHSenderSliderChatCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 786BBA861FFA12B200EEA21D /* EHSenderSliderChatCell.swift */; };
+		786BBA891FFA139400EEA21D /* EHDateCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 786BBA881FFA139400EEA21D /* EHDateCell.swift */; };
+		786BBA8B1FFA190A00EEA21D /* EHChatMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 786BBA8A1FFA190A00EEA21D /* EHChatMessage.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -47,6 +52,11 @@
 		7858FEBC1FF9FF0E004B2BBC /* chatTableUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = chatTableUITests.swift; sourceTree = "<group>"; };
 		7858FEBE1FF9FF0E004B2BBC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		7858FECB1FFA0A4A004B2BBC /* EHChatViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EHChatViewController.swift; sourceTree = "<group>"; };
+		786BBA821FFA126000EEA21D /* EHUserChatCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EHUserChatCell.swift; sourceTree = "<group>"; };
+		786BBA841FFA127800EEA21D /* EHSenderChatCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EHSenderChatCell.swift; sourceTree = "<group>"; };
+		786BBA861FFA12B200EEA21D /* EHSenderSliderChatCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EHSenderSliderChatCell.swift; sourceTree = "<group>"; };
+		786BBA881FFA139400EEA21D /* EHDateCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EHDateCell.swift; sourceTree = "<group>"; };
+		786BBA8A1FFA190A00EEA21D /* EHChatMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EHChatMessage.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -97,6 +107,9 @@
 		7858FE9B1FF9FF0E004B2BBC /* chatTable */ = {
 			isa = PBXGroup;
 			children = (
+				786BBA811FFA107000EEA21D /* helper files */,
+				786BBA801FFA105900EEA21D /* model */,
+				786BBA7F1FFA104C00EEA21D /* view */,
 				7858FECA1FFA0A03004B2BBC /* controller */,
 				7858FE9C1FF9FF0E004B2BBC /* AppDelegate.swift */,
 				7858FEA01FF9FF0E004B2BBC /* Main.storyboard */,
@@ -131,6 +144,32 @@
 				7858FECB1FFA0A4A004B2BBC /* EHChatViewController.swift */,
 			);
 			path = controller;
+			sourceTree = "<group>";
+		};
+		786BBA7F1FFA104C00EEA21D /* view */ = {
+			isa = PBXGroup;
+			children = (
+				786BBA821FFA126000EEA21D /* EHUserChatCell.swift */,
+				786BBA841FFA127800EEA21D /* EHSenderChatCell.swift */,
+				786BBA861FFA12B200EEA21D /* EHSenderSliderChatCell.swift */,
+				786BBA881FFA139400EEA21D /* EHDateCell.swift */,
+			);
+			path = view;
+			sourceTree = "<group>";
+		};
+		786BBA801FFA105900EEA21D /* model */ = {
+			isa = PBXGroup;
+			children = (
+				786BBA8A1FFA190A00EEA21D /* EHChatMessage.swift */,
+			);
+			path = model;
+			sourceTree = "<group>";
+		};
+		786BBA811FFA107000EEA21D /* helper files */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = "helper files";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -267,8 +306,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				786BBA891FFA139400EEA21D /* EHDateCell.swift in Sources */,
+				786BBA8B1FFA190A00EEA21D /* EHChatMessage.swift in Sources */,
+				786BBA831FFA126000EEA21D /* EHUserChatCell.swift in Sources */,
 				7858FE9D1FF9FF0E004B2BBC /* AppDelegate.swift in Sources */,
 				7858FECC1FFA0A4A004B2BBC /* EHChatViewController.swift in Sources */,
+				786BBA871FFA12B200EEA21D /* EHSenderSliderChatCell.swift in Sources */,
+				786BBA851FFA127800EEA21D /* EHSenderChatCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
