@@ -18,6 +18,8 @@ class EHChatViewController: UIViewController {
     var typingAnimationThread:[DispatchWorkItem?] = []
     //time delay for each message
     var timeDelay:[Double] = []
+    //var to store the status of typing
+    var isTyping:Bool = false
     
     //MARK:- Life cycle events
     override func viewDidLoad() {
@@ -40,7 +42,8 @@ class EHChatViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         // assigning first chat. Demo only. Actual case this response may be from api call.
-        self.initialiseChatMessages(messages: self.simpleChatMaker())
+        //self.initialiseChatMessages(messages: self.simpleChatMaker())
+        self.timerFunctions(messages: self.simpleChatMaker())
         //self.chatMessages = self.simpleChatMaker()
         //self.chatTableView.reloadData()
     }
@@ -72,30 +75,69 @@ class EHChatViewController: UIViewController {
     }
     
     func initialiseChatMessages(messages:[EHChatMessage]){
-        var triggeringTime:Double = 0.2
+        var triggeringTime:Double = 6.2
         for index in 0 ..< messages.count{
-        self.timeDelay.append(Double(messages[index].text.trimmingCharacters(in: .whitespacesAndNewlines).count)*0.05)
-            
+        self.timeDelay.append(Double(messages[index].text.trimmingCharacters(in: .whitespacesAndNewlines).count)*0.1)
+            print("time delay array - \(self.timeDelay)")
             let when = DispatchTime.now() + (triggeringTime+0.5)
+            if index > 0{
+                triggeringTime += self.timeDelay[index-1]
+            }
             let thread = DispatchWorkItem(block: {
-                print("time delay array - \(self.timeDelay)")
-                print("Triggered on time - \(triggeringTime+0.5)")
-                if index > 0{
-                    triggeringTime += self.timeDelay[index-1]
-                }
                 self.changeContentInsetToHeightOfMessage(message: messages[index])
-                print("time delay for next chat - \(index > 0 ? self.timeDelay[index]:0)")
-                self.addNewMessageWithTypingAnimation(newMessage: messages[index], timeDelay: index > 0 ? self.timeDelay[index]:0)
+                print("time delay for next chat - \(self.timeDelay[index])")
+                //add typing cell
+                let typingMessage = EHChatMessage()
+                typingMessage.chatType = .typing
+                self.addNewChatMessage(newMessage: typingMessage)
+                let when = DispatchTime.now() + self.timeDelay[index]
+                DispatchQueue.main.asyncAfter(deadline: when, execute: {
+                    //delete and add new message
+                    self.deleteTypingAnimationAndAddNewMessage(newMessage:messages[index])
+                })
             })
             typingAnimationThread.append(thread)
+            print("Triggered on time - \(triggeringTime+0.5)")
             DispatchQueue.main.asyncAfter(deadline: when, execute: thread)
         }
+    }
+    
+    func timerFunctions(messages:[EHChatMessage]){
+        var triggeringTime:Double = 0.2
+        for index in 0 ..< messages.count{
+            self.timeDelay.append(Double(messages[index].text.trimmingCharacters(in: .whitespacesAndNewlines).count)*0.1)
+            if index > 0{
+                triggeringTime += self.timeDelay[index-1]
+            }
+            Timer.scheduledTimer(withTimeInterval: triggeringTime, repeats: false, block: { (timer1) in
+                
+                self.changeContentInsetToHeightOfMessage(message: messages[index])
+                print("time delay for next chat - \(self.timeDelay[index])")
+                //add typing cell
+                if self.chatMessages.isEmpty{
+                    self.addTypingCell()
+                }
+                if let lastChat = self.chatMessages.last,lastChat.chatType != .typing{
+                    self.addTypingCell()
+                }
+                
+                Timer.scheduledTimer(withTimeInterval: self.timeDelay[index], repeats: false, block: { (timer2) in
+                    self.deleteTypingAnimationAndAddNewMessage(newMessage:messages[index])
+                    timer2.invalidate()
+                })
+                timer1.invalidate()
+            })
+        }
+    }
+    func addTypingCell(){
+        let typingMessage = EHChatMessage()
+        typingMessage.chatType = .typing
+        self.addNewChatMessage(newMessage: typingMessage)
     }
     
     //add new message with typing animation
     func addNewMessageWithTypingAnimation(newMessage:EHChatMessage,timeDelay:Double){
         //create typing chat
-        print("added typing cell")
         let typingMessage = EHChatMessage()
         typingMessage.chatType = .typing
         typingMessage.text = newMessage.text
@@ -133,7 +175,13 @@ class EHChatViewController: UIViewController {
     //delete typing message
     
     func deleteTypingAnimationAndAddNewMessage(newMessage: EHChatMessage){
+        
         if let message = chatMessages.last, message.chatType == .typing{
+            print("chat messages before deleting count \(self.chatMessages.count)")
+            for message in chatMessages{
+                print("message type \(message.chatType)")
+                print("message text \(message.text)")
+            }
             self.chatMessages.remove(at: chatMessages.count-1)
             print("after deleting typing chat array count - \(chatMessages.count)")
             let indexPath = IndexPath(row: self.chatMessages.count, section: 0)
@@ -145,6 +193,11 @@ class EHChatViewController: UIViewController {
             CATransaction.setCompletionBlock(
                 {
                     UIView.setAnimationsEnabled(true)
+                    print("chat messages after deleting count \(self.chatMessages.count)")
+                    for message in self.chatMessages{
+                        print("message type \(message.chatType)")
+                        print("message text \(message.text)")
+                    }
                     self.addNewChatMessage(newMessage: newMessage)
             })
             
@@ -152,6 +205,9 @@ class EHChatViewController: UIViewController {
             self.chatTableView.deleteRows(at: [indexPath], with: .fade)
             self.chatTableView.endUpdates()
             CATransaction.commit()
+        }
+        else{
+            print("failed to delete - \(newMessage.chatType)")
         }
     }
     
@@ -187,7 +243,8 @@ class EHChatViewController: UIViewController {
     {
         //for "typing" cell
         if message.chatType == .typing{
-            if self.shouldShowProfilePicForChatMessage(newMessage: message){
+            if self.shouldShowPicForCell(indexPath: indexPath){
+            //if self.shouldShowProfilePicForChatMessage(newMessage: message){
                 
                 return 70 // height for "Typing" cell with profile pic
             }
@@ -197,9 +254,9 @@ class EHChatViewController: UIViewController {
         // All cells except "Typing" and "Slider"
         else if message.chatType != .senderSliderChat{
             var extraHeight : CGFloat = 10
-            
-            if self.shouldShowProfilePicForChatMessage(newMessage: message)
-            {
+            if self.shouldShowPicForCell(indexPath: indexPath){
+            //if self.shouldShowProfilePicForChatMessage(newMessage: message)
+            //{
                 extraHeight = 35
             }
             // Use correct width that used in storyboard
@@ -221,9 +278,9 @@ class EHChatViewController: UIViewController {
         else{
             var extraHeight : CGFloat = 0
             let width = (UIScreen.main.bounds.size.width)*0.8 - 28
-            
-            if self.shouldShowProfilePicForChatMessage(newMessage: message)
-            {
+            if self.shouldShowPicForCell(indexPath: indexPath){
+            //if self.shouldShowProfilePicForChatMessage(newMessage: message)
+            //{
                 extraHeight = 25
             }
             let label = UILabel(frame: CGRect(x: 0, y: 0, width: width, height: 30))
@@ -263,6 +320,29 @@ class EHChatViewController: UIViewController {
         return false
     }
     
+    func shouldShowPicForCell(indexPath:IndexPath) -> Bool{
+        return true
+        if indexPath.row == 0{
+            return true
+        }
+        else if self.chatMessages.isEmpty{
+            return true
+        }
+        else{
+            let newMessage = self.chatMessages[indexPath.row]
+            let lastMessage = self.chatMessages[indexPath.row - 1]
+            if newMessage.chatType == .userChatCell && lastMessage.chatType != .userChatCell{
+                return true
+            }
+            else if newMessage.chatType != .userChatCell && lastMessage.chatType == .userChatCell{
+                return true
+            }
+            else{
+                return false
+            }
+        }
+    }
+    
     
     
 
@@ -297,6 +377,14 @@ extension EHChatViewController:UITableViewDelegate{
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         let message = chatMessages[indexPath.row]
         if let cell = cell as? EHSenderChatCell{
+            if shouldShowPicForCell(indexPath: indexPath){
+                cell.topConstraintOfChatLabel.constant = 17
+                cell.profilePic.isHidden = false
+            }
+            else{
+                cell.topConstraintOfChatLabel.constant = 0
+                cell.profilePic.isHidden = true
+            }
             if message.chatType == .typing{
                 cell.labelWidthConstraint.constant = 80
             }
@@ -307,6 +395,10 @@ extension EHChatViewController:UITableViewDelegate{
             }
         }
         
+    }
+    
+    func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
+        self.chatTableView.contentInset.top = 0
     }
 }
 extension EHChatViewController:UITableViewDataSource{
