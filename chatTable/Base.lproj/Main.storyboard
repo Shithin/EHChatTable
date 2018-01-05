@@ -96,6 +96,14 @@
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
+                                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="PKL-AK-u6I">
+                                                            <rect key="frame" x="172" y="51" width="30" height="10"/>
+                                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="width" constant="30" id="2pg-qL-3c7"/>
+                                                                <constraint firstAttribute="height" constant="10" id="BVj-b0-cBY"/>
+                                                            </constraints>
+                                                        </view>
                                                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="sender_profilePic" translatesAutoresizingMaskIntoConstraints="NO" id="RuC-tZ-3Cd">
                                                             <rect key="frame" x="12" y="8" width="30" height="30"/>
                                                             <constraints>
@@ -114,6 +122,8 @@
                                                         <constraint firstItem="KSn-8u-DX2" firstAttribute="width" secondItem="pfV-HS-lnu" secondAttribute="width" constant="24" id="Nfu-Pr-MSs"/>
                                                         <constraint firstItem="pfV-HS-lnu" firstAttribute="leading" secondItem="4iZ-ms-XbV" secondAttribute="leadingMargin" constant="14" id="WPu-qq-Y2u"/>
                                                         <constraint firstItem="KSn-8u-DX2" firstAttribute="centerX" secondItem="pfV-HS-lnu" secondAttribute="centerX" id="iFI-vW-e49"/>
+                                                        <constraint firstItem="PKL-AK-u6I" firstAttribute="centerY" secondItem="pfV-HS-lnu" secondAttribute="centerY" id="oNT-nT-IET"/>
+                                                        <constraint firstItem="PKL-AK-u6I" firstAttribute="leading" secondItem="pfV-HS-lnu" secondAttribute="trailing" constant="-23" id="shc-QA-q37"/>
                                                         <constraint firstItem="pfV-HS-lnu" firstAttribute="leading" secondItem="RuC-tZ-3Cd" secondAttribute="trailing" constant="-13" id="t3I-dN-57I"/>
                                                     </constraints>
                                                 </tableViewCellContentView>
@@ -124,6 +134,7 @@
                                                     <outlet property="labelWidthConstraint" destination="1bZ-Tb-yfW" id="R4B-ei-aFo"/>
                                                     <outlet property="profilePic" destination="RuC-tZ-3Cd" id="djz-IR-4lK"/>
                                                     <outlet property="topConstraintOfChatLabel" destination="7cy-7G-j3M" id="hpd-VQ-7kO"/>
+                                                    <outlet property="typingAnimationView" destination="PKL-AK-u6I" id="Lte-rW-Hlq"/>
                                                 </connections>
                                             </tableViewCell>
                                             <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="JPUserSliderChatCell" rowHeight="150" id="okB-4G-ihJ" customClass="JPUserSliderChatCell" customModule="chatTable" customModuleProvider="target">
@@ -396,7 +407,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="CmK-IY-AjO" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1028" y="173"/>
+            <point key="canvasLocation" x="1169" y="173"/>
         </scene>
     </scenes>
     <resources>

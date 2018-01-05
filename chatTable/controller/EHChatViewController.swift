@@ -41,11 +41,7 @@ class EHChatViewController: UIViewController {
     }
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        // assigning first chat. Demo only. Actual case this response may be from api call.
-        //self.initialiseChatMessages(messages: self.simpleChatMaker())
-        self.timerFunctions(messages: self.simpleChatMaker())
-        //self.chatMessages = self.simpleChatMaker()
-        //self.chatTableView.reloadData()
+        self.initiateChat(messages: sampleChatMaker())
     }
 
     override func didReceiveMemoryWarning() {
@@ -54,15 +50,7 @@ class EHChatViewController: UIViewController {
     }
     
     //MARK: - Sample chat maker
-    func simpleChatMaker() -> [EHChatMessage]{
-        let initialChat = EHChatMessage()
-        initialChat.chatType = .senderSimpleChat
-        initialChat.text = "First Chat. And it's very long chat to test the label capability."
-        let secondChat = EHChatMessage()
-        secondChat.chatType = .senderSimpleChat
-        secondChat.text = "This is second chat. And it is very long too."
-        return [initialChat,secondChat,initialChat,secondChat,initialChat,secondChat,initialChat,secondChat,initialChat,secondChat,initialChat,secondChat]
-    }
+   
     //MARK: -To Create background gradient
     func createGradientLayer() {
         let gradientLayer = CAGradientLayer()
@@ -74,56 +62,32 @@ class EHChatViewController: UIViewController {
         self.view.layer.insertSublayer(gradientLayer, at: 0)
     }
     
-    func initialiseChatMessages(messages:[EHChatMessage]){
-        var triggeringTime:Double = 6.2
-        for index in 0 ..< messages.count{
-        self.timeDelay.append(Double(messages[index].text.trimmingCharacters(in: .whitespacesAndNewlines).count)*0.1)
-            print("time delay array - \(self.timeDelay)")
-            let when = DispatchTime.now() + (triggeringTime+0.5)
-            if index > 0{
-                triggeringTime += self.timeDelay[index-1]
-            }
-            let thread = DispatchWorkItem(block: {
-                self.changeContentInsetToHeightOfMessage(message: messages[index])
-                print("time delay for next chat - \(self.timeDelay[index])")
-                //add typing cell
-                let typingMessage = EHChatMessage()
-                typingMessage.chatType = .typing
-                self.addNewChatMessage(newMessage: typingMessage)
-                let when = DispatchTime.now() + self.timeDelay[index]
-                DispatchQueue.main.asyncAfter(deadline: when, execute: {
-                    //delete and add new message
-                    self.deleteTypingAnimationAndAddNewMessage(newMessage:messages[index])
-                })
-            })
-            typingAnimationThread.append(thread)
-            print("Triggered on time - \(triggeringTime+0.5)")
-            DispatchQueue.main.asyncAfter(deadline: when, execute: thread)
-        }
-    }
-    
-    func timerFunctions(messages:[EHChatMessage]){
-        var triggeringTime:Double = 0.2
+   
+    var startTime:DispatchTime = DispatchTime.init(uptimeNanoseconds: 0)
+    func initiateChat(messages:[EHChatMessage]){
+        var triggeringTime:Double = 0
+        startTime = DispatchTime.now()
+        print("execution started : \(DispatchTime.now())")
         for index in 0 ..< messages.count{
             self.timeDelay.append(Double(messages[index].text.trimmingCharacters(in: .whitespacesAndNewlines).count)*0.1)
-            if index > 0{
-                triggeringTime += self.timeDelay[index-1]
+            print("message \(index) - \(messages[index].text)")
+            triggeringTime += self.timeDelay[index] > 1 ? self.timeDelay[index] : 1.2
+            var mainTiming = triggeringTime+0.1
+            if index == 0{
+                mainTiming = 0.2
             }
-            Timer.scheduledTimer(withTimeInterval: triggeringTime, repeats: false, block: { (timer1) in
-                
+            print("triggering Time array : \(timeDelay)")
+            print("assigning timing for index \(index) to main timer \(mainTiming*1000)")
+            Timer.scheduledTimer(withTimeInterval: mainTiming, repeats: false, block: { (timer1) in
+                let time = (DispatchTime.now().rawValue - self.startTime.rawValue)/1000000
+                print("main timer timing : \(time)")
                 self.changeContentInsetToHeightOfMessage(message: messages[index])
-                print("time delay for next chat - \(self.timeDelay[index])")
-                //add typing cell
-                if self.chatMessages.isEmpty{
-                    self.addTypingCell()
-                }
-                if let lastChat = self.chatMessages.last,lastChat.chatType != .typing{
-                    self.addTypingCell()
-                }
-                
-                Timer.scheduledTimer(withTimeInterval: self.timeDelay[index], repeats: false, block: { (timer2) in
-                    self.deleteTypingAnimationAndAddNewMessage(newMessage:messages[index])
-                    timer2.invalidate()
+                self.deleteTypingAnimationAndAddNewMessage(newMessage:messages[index])
+                DispatchQueue.main.asyncAfter(deadline: DispatchTime.now()+1, execute: {
+                    if index != messages.count - 1{
+                        self.addTypingCell()
+                    }
+                    
                 })
                 timer1.invalidate()
             })
@@ -144,7 +108,6 @@ class EHChatViewController: UIViewController {
         self.addNewChatMessage(newMessage: typingMessage)
         let when = DispatchTime.now() + timeDelay
         DispatchQueue.main.asyncAfter(deadline: when) {
-            print("added new message and deleted typing message)")
             self.deleteTypingAnimationAndAddNewMessage(newMessage:newMessage)
         }
     }
@@ -177,13 +140,8 @@ class EHChatViewController: UIViewController {
     func deleteTypingAnimationAndAddNewMessage(newMessage: EHChatMessage){
         
         if let message = chatMessages.last, message.chatType == .typing{
-            print("chat messages before deleting count \(self.chatMessages.count)")
-            for message in chatMessages{
-                print("message type \(message.chatType)")
-                print("message text \(message.text)")
-            }
+            
             self.chatMessages.remove(at: chatMessages.count-1)
-            print("after deleting typing chat array count - \(chatMessages.count)")
             let indexPath = IndexPath(row: self.chatMessages.count, section: 0)
             
             UIView.setAnimationsEnabled(false)
@@ -193,11 +151,7 @@ class EHChatViewController: UIViewController {
             CATransaction.setCompletionBlock(
                 {
                     UIView.setAnimationsEnabled(true)
-                    print("chat messages after deleting count \(self.chatMessages.count)")
-                    for message in self.chatMessages{
-                        print("message type \(message.chatType)")
-                        print("message text \(message.text)")
-                    }
+                    
                     self.addNewChatMessage(newMessage: newMessage)
             })
             
@@ -207,7 +161,7 @@ class EHChatViewController: UIViewController {
             CATransaction.commit()
         }
         else{
-            print("failed to delete - \(newMessage.chatType)")
+            self.addNewChatMessage(newMessage: newMessage)
         }
     }
     
@@ -320,8 +274,7 @@ class EHChatViewController: UIViewController {
         return false
     }
     
-    func shouldShowPicForCell(indexPath:IndexPath) -> Bool{
-        return true
+    func shouldShowPicForCell(indexPath:IndexPath,newChat:EHChatMessage? = nil) -> Bool{
         if indexPath.row == 0{
             return true
         }
@@ -329,8 +282,22 @@ class EHChatViewController: UIViewController {
             return true
         }
         else{
-            let newMessage = self.chatMessages[indexPath.row]
-            let lastMessage = self.chatMessages[indexPath.row - 1]
+            var newMessage = self.chatMessages[0]
+            var lastMessage = self.chatMessages[0]
+            if indexPath.row == -1{
+                if let message = newChat{
+                    newMessage = message
+                    lastMessage = self.chatMessages[self.chatMessages.count - 1]
+                }
+                else{
+                    return false
+                }
+            }
+            else{
+                newMessage = self.chatMessages[indexPath.row]
+                lastMessage = self.chatMessages[indexPath.row - 1]
+            }
+            
             if newMessage.chatType == .userChatCell && lastMessage.chatType != .userChatCell{
                 return true
             }
@@ -342,10 +309,6 @@ class EHChatViewController: UIViewController {
             }
         }
     }
-    
-    
-    
-
 }
 
 extension EHChatViewController:UITableViewDelegate{
@@ -412,6 +375,14 @@ extension EHChatViewController:UITableViewDataSource{
         case .senderSimpleChat:
             let cell = self.chatTableView.dequeueReusableCell(withIdentifier: "EHSenderChatCell", for: indexPath) as! EHSenderChatCell
             cell.chatLabel.text = chatMessage.text
+            cell.typingAnimationView.isHidden = true
+            return cell
+        case .typing:
+            let cell = self.chatTableView.dequeueReusableCell(withIdentifier: "EHSenderChatCell", for: indexPath) as! EHSenderChatCell
+            cell.chatLabel.text = "Typing"
+            cell.typingAnimationView.isHidden = false
+            cell.dots.startAnimating()
+            
             return cell
         default:
             break

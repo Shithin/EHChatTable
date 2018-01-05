@@ -19,6 +19,8 @@
 		786BBA871FFA12B200EEA21D /* EHSenderSliderChatCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 786BBA861FFA12B200EEA21D /* EHSenderSliderChatCell.swift */; };
 		786BBA891FFA139400EEA21D /* EHDateCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 786BBA881FFA139400EEA21D /* EHDateCell.swift */; };
 		786BBA8B1FFA190A00EEA21D /* EHChatMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 786BBA8A1FFA190A00EEA21D /* EHChatMessage.swift */; };
+		789D901F1FFE3F3B00272626 /* sampleChat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 789D901E1FFE3F3B00272626 /* sampleChat.swift */; };
+		789D90221FFE51D400272626 /* YSTypingAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 789D90211FFE51D400272626 /* YSTypingAnimation.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -57,6 +59,8 @@
 		786BBA861FFA12B200EEA21D /* EHSenderSliderChatCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EHSenderSliderChatCell.swift; sourceTree = "<group>"; };
 		786BBA881FFA139400EEA21D /* EHDateCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EHDateCell.swift; sourceTree = "<group>"; };
 		786BBA8A1FFA190A00EEA21D /* EHChatMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EHChatMessage.swift; sourceTree = "<group>"; };
+		789D901E1FFE3F3B00272626 /* sampleChat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = sampleChat.swift; sourceTree = "<group>"; };
+		789D90211FFE51D400272626 /* YSTypingAnimation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = YSTypingAnimation.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -149,6 +153,7 @@
 		786BBA7F1FFA104C00EEA21D /* view */ = {
 			isa = PBXGroup;
 			children = (
+				789D90211FFE51D400272626 /* YSTypingAnimation.swift */,
 				786BBA821FFA126000EEA21D /* EHUserChatCell.swift */,
 				786BBA841FFA127800EEA21D /* EHSenderChatCell.swift */,
 				786BBA861FFA12B200EEA21D /* EHSenderSliderChatCell.swift */,
@@ -168,6 +173,7 @@
 		786BBA811FFA107000EEA21D /* helper files */ = {
 			isa = PBXGroup;
 			children = (
+				789D901E1FFE3F3B00272626 /* sampleChat.swift */,
 			);
 			path = "helper files";
 			sourceTree = "<group>";
@@ -308,9 +314,11 @@
 			files = (
 				786BBA891FFA139400EEA21D /* EHDateCell.swift in Sources */,
 				786BBA8B1FFA190A00EEA21D /* EHChatMessage.swift in Sources */,
+				789D90221FFE51D400272626 /* YSTypingAnimation.swift in Sources */,
 				786BBA831FFA126000EEA21D /* EHUserChatCell.swift in Sources */,
 				7858FE9D1FF9FF0E004B2BBC /* AppDelegate.swift in Sources */,
 				7858FECC1FFA0A4A004B2BBC /* EHChatViewController.swift in Sources */,
+				789D901F1FFE3F3B00272626 /* sampleChat.swift in Sources */,
 				786BBA871FFA12B200EEA21D /* EHSenderSliderChatCell.swift in Sources */,
 				786BBA851FFA127800EEA21D /* EHSenderChatCell.swift in Sources */,
 			);
