@@ -5,7 +5,7 @@
 [![License][license-image]][license-url]
 [![Platform](https://img.shields.io/cocoapods/p/LFAlertController.svg?style=flat)](http://cocoapods.org/pods/LFAlertController)
 
-One to two paragraph statement about your product and what it does.
+This is a sample project for chat bot implementation. Messages can be split up and typing animation is shown according to the length of message text chaecters. Tableview scrolling and chat cell height and width is automatically adjusted according to the message. Three types of user interaction is possible. Custom message can be type, select a given option and give rating.
 
 ![](header.png)
 
@@ -15,6 +15,7 @@ One to two paragraph statement about your product and what it does.
 - [x] Automatic typing time generated according to chat text length.
 - [x] Automatic size correction for chat cell and option views.
 - [x] Easy to integrate with existing chat based app.
+- [x] User can give rating, input text and select options.
 
 ## Requirements
 
@@ -33,7 +34,7 @@ Shithin PV – [@Twitter](https://twitter.com/e3help_blog) – shithinpv6@gmail.
 
 Distributed under the MIT license. See ``LICENSE`` for more information.
 
-[https://github.com/yourname/github-link](https://github.com/dbader/)
+[https://github.com/Shtihin](https://github.com)
 
 [swift-image]:https://img.shields.io/badge/swift-4.0-orange.svg
 [swift-url]: https://swift.org/
