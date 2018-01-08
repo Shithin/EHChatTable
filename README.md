@@ -2,7 +2,6 @@
 > LARK like chatbot animation project
 
 [![Swift Version][swift-image]][swift-url]
-[![Build Status][travis-image]][travis-url]
 [![License][license-image]][license-url]
 [![Platform](https://img.shields.io/cocoapods/p/LFAlertController.svg?style=flat)](http://cocoapods.org/pods/LFAlertController)
 
@@ -12,11 +11,10 @@ One to two paragraph statement about your product and what it does.
 
 ## Features
 
-- [x] Feature 1
-- [x] Feature 2
-- [x] Feature 3
-- [x] Feature 4
-- [x] Feature 5
+- [x] Highly Customisable. 
+- [x] Automatic typing time generated according to chat text length.
+- [x] Automatic size correction for chat cell and option views.
+- [x] Easy to integrate with existing chat based app.
 
 ## Requirements
 
@@ -25,27 +23,15 @@ One to two paragraph statement about your product and what it does.
 
 ## Installation
 
-1. Download and drop ```YourLibrary.swift``` in your project.  
-2. Congratulations!  
+1. Download the project.  
+2. Customise and integrate to your existing project. 
 
-## Usage example
-
-```swift
-import EZSwiftExtensions
-ez.detectScreenShot { () -> () in
-    print("User took a screen shot")
-}
-```
-
-## Contribute
-
-We would love you for the contribution to **YourLibraryName**, check the ``LICENSE`` file for more info.
 
 ## Meta
 
-Shithin PV – [@YourTwitter](https://twitter.com/dbader_org) – shithinpv6@gmail.com
+Shithin PV – [@Twitter](https://twitter.com/e3help_blog) – shithinpv6@gmail.com
 
-Distributed under the XYZ license. See ``LICENSE`` for more information.
+Distributed under the MIT license. See ``LICENSE`` for more information.
 
 [https://github.com/yourname/github-link](https://github.com/dbader/)
 
@@ -53,8 +39,6 @@ Distributed under the XYZ license. See ``LICENSE`` for more information.
 [swift-url]: https://swift.org/
 [license-image]: https://img.shields.io/badge/License-MIT-blue.svg
 [license-url]: LICENSE
-[travis-image]: https://img.shields.io/travis/dbader/node-datadog-metrics/master.svg?style=flat-square
-[travis-url]: https://travis-ci.org/dbader/node-datadog-metrics
+
 [codebeat-image]: https://codebeat.co/badges/c19b47ea-2f9d-45df-8458-b2d952fe9dad
 [codebeat-url]: https://codebeat.co/projects/github-com-vsouza-awesomeios-com
-
