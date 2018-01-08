@@ -28,7 +28,7 @@ This is a sample project for chat bot implementation. Messages can be split up a
 2. Customise and integrate to your existing project. 
 
 
-## Meta
+## About
 
 Shithin PV – [@Twitter](https://twitter.com/e3help_blog) – shithinpv6@gmail.com
 
